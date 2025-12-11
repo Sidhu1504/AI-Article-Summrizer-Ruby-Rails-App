@@ -1,14 +1,24 @@
-# Ruby API Service Starter
+# README
 
-This is a minimal Ruby API service starter based on [Google Cloud Run Quickstart](https://cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-ruby-service).
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-## Getting Started
+Things you may want to cover:
 
-Server should run automatically when starting a workspace. To run manually, run:
-```sh
-ruby app.rb
-```
+* Ruby version
 
-## Deploying to Cloud Run
+* System dependencies
 
-The Dockerfile will be used to build the image when deploying to Cloud Run.
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...

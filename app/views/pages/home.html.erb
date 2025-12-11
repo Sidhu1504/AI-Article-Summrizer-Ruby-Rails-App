@@ -1,0 +1,8 @@
+<div class="max-w-3xl mx-auto mt-12 p-6 bg-white border border-gray-200 rounded-lg shadow-lg">
+  <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">AI Article Summarizer</h1>
+
+  <%= form_with url: articles_path, method: :post, class: "flex items-center justify-center" do |form| %>
+    <%= form.text_field :url, placeholder: "Enter article URL...", class: "w-full px-4 py-3 text-lg text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition duration-300" %>
+    <%= form.submit "Summarize", class: "ml-4 px-6 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300" %>
+  <% end %>
+</div>

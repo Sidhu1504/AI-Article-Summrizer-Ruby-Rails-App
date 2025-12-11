@@ -1,34 +1,28 @@
-# To learn more about how to use Nix to configure your environment
-# see: https://developers.google.com/idx/guides/customize-idx-env
-{ pkgs, ... }: {
-  # Which nixpkgs channel to use.
-  channel = "stable-24.05"; # or "unstable"
-  # Use https://search.nixos.org/packages to find packages
-  packages = [
-    pkgs.ruby
-    pkgs.bundler
-    pkgs.gcc
-    pkgs.gnumake
-  ];
-  # Sets environment variables in the workspace
-  env = {};
-  idx = {
-    # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
-    extensions = [
-      "Shopify.ruby-lsp"
-      "google.gemini-cli-vscode-ide-companion"
-    ];
-    workspace = {
-      # Runs when a workspace is first created
-      onCreate = {
-        bundle-install = "bundle install";
-        # Open editors for the following files by default, if they exist:
-        default.openFiles = ["app.rb"];
-      };
-      # Runs when a workspace is (re)started
-      onStart= {
-        run-server = "bundle exec rerun 'ruby app.rb'";
-      };
-    };
+{ pkgs, ... }:
+{
+  # Recommended for Ruby projects
+  packages = [ pkgs.ruby pkgs.libyaml pkgs.postgresql ];
+  # Non-language packages
+  dev-packages = [ pkgs.git ];
+
+  # Specify the version of Ruby to use
+  languages.ruby = {
+    enable = true;
+    version = "3.1"; # Or "2.7", "3.0", "3.2"
   };
+
+  # Enable this to get automatic shell activation
+  # automatic-shell-activation = {
+  #   enable = true;
+  # };
+
+  # Set environment variables
+  # env = {
+  #   RAILS_ENV = "development";
+  # };
+
+  # Add any commands you want to run when the environment is created
+  startup-commands = [
+    "sudo service postgresql start"
+  ];
 }
