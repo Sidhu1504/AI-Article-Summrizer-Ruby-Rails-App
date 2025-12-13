@@ -1,0 +1,18 @@
+<div class="container mx-auto px-4">
+  <h1 class="text-2xl font-bold my-4">Articles</h1>
+
+  <div id="articles">
+    <% @articles.each do |article| %>
+      <div class="mb-4 p-4 border rounded">
+        <h2 class="font-bold"><%= article.url %></h2>
+        <p><%= article.summary %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <% if user_signed_in? %>
+    <%= link_to "New Article", new_article_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <% else %>
+    <p>Please <%= link_to "log in", new_user_session_path %> to create a new article.</p>
+  <% end %>
+</div>

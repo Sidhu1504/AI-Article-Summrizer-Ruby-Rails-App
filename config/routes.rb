@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
-  get 'articles/create'
-  get 'articles/show'
-  root "pages#home"
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  namespace :admin do
+    get 'dashboard', to: 'dashboard#index'
+  end
 
-  resources :articles, only: [:create, :show]
+  namespace :api do
+    namespace :v1 do
+      # API authentication routes
+      get 'auth/:provider/callback', to: 'authentication#social_auth'
+    end
+  end
 
-  get "up" => "rails/health#show", as: :rails_health_check
+  resources :articles, only: [:index, :new, :create]
+
+  root 'articles#index'
 end
