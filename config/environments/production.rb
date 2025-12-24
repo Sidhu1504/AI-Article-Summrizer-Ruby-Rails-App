@@ -6,11 +6,34 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
+  config.action_dispatch.trusted_proxies = [
+  IPAddr.new("127.0.0.1"),
+  IPAddr.new("192.168.56.0/24")
+]
+
+config.action_dispatch.assume_ssl = false
+
+Rails.application.configure do
+  # HARD DISABLE SSL
+  config.force_ssl = false
+  config.assume_ssl = false
+
+  # REMOVE HTTPS redirects
+  config.ssl_options = {}
+
+  # Disable ActionDispatch SSL
+  config.middleware.delete ActionDispatch::SSL
+end
+
+
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
+
+  config.assets.digest = true
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local = false
@@ -21,7 +44,7 @@ Rails.application.configure do
   # config.require_master_key = true
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
-  # config.public_file_server.enabled = false
+  config.public_file_server.enabled = false
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
@@ -49,7 +72,7 @@ Rails.application.configure do
   # config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
