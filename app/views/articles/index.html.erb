@@ -1,18 +1,23 @@
-<div class="container mx-auto px-4">
-  <h1 class="text-2xl font-bold my-4">Articles</h1>
+<div class="animated-fade-in">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-800">Summarized Articles</h1>
+    <% if user_signed_in? %>
+      <%= link_to "New Article", new_article_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    <% end %>
+  </div>
 
-  <div id="articles">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     <% @articles.each do |article| %>
-      <div class="mb-4 p-4 border rounded">
-        <h2 class="font-bold"><%= article.url %></h2>
-        <p><%= article.summary %></p>
+      <div class="bg-white rounded-lg shadow-md p-6 animated-fade-in">
+        <h2 class="text-xl font-semibold text-gray-800 mb-2"><%= article.url %></h2>
+        <p class="text-gray-600"><%= article.summary %></p>
       </div>
     <% end %>
   </div>
 
-  <% if user_signed_in? %>
-    <%= link_to "New Article", new_article_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-  <% else %>
-    <p>Please <%= link_to "log in", new_user_session_path %> to create a new article.</p>
+  <% unless user_signed_in? %>
+    <div class="mt-8 text-center">
+      <p class="text-lg text-gray-600">Please <%= link_to "log in", new_user_session_path, class: "text-blue-500 hover:underline" %> to create a new article.</p>
+    </div>
   <% end %>
 </div>
